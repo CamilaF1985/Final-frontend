@@ -27,9 +27,13 @@ const LoginForm = () => {
     // Función para manejar el proceso de inicio de sesión
     const handleLogin = () => {
         if (formData.username === 'Administrador' && formData.password === 'Admin') {
-            // Credenciales correctas, cierra el modal y redirige a /home-administrador
+            // Credenciales correctas para el administrador, cierra el modal y redirige a /home-administrador
             dispatch(closeModal());
             navigate('/home-administrador');
+        } else if (formData.username === 'Inquilino' && formData.password === 'Inquilino') {
+            // Credenciales correctas para el inquilino, cierra el modal y redirige a /home-inquilino
+            dispatch(closeModal());
+            navigate('/home-inquilino');
         } else {
             // Credenciales incorrectas, muestra una alerta y cierra el modal
             alert('Credenciales incorrectas');
