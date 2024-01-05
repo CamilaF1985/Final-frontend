@@ -8,6 +8,7 @@ Este repositorio sirve como espacio de desarrollo para el Front End del proyecto
 - CSS
 - Bootstrap
 - React Router y react-router-dom
+- Patrón Flux con Redux
 
 ## Instalación
 
