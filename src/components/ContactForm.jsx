@@ -8,19 +8,18 @@ import '../assets/css/App.css';
 const ContactForm = () => {
     // Hooks y Redux
     const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.modal.modalIsOpen);
-    const navigate = useNavigate();  
+    const navigate = useNavigate();
 
     // Función para cerrar el modal y redirigir a la ruta principal
     const handleCloseModal = () => {
         // Configuración de la ruta
-        const path = '/'; 
+        const path = '/';
         dispatch(closeModalAndRedirect(path, navigate));
     };
 
     return (
         <Modal
-            isOpen={isModalOpen}
+            isOpen={true}
             onRequestClose={handleCloseModal}
             contentLabel="ContactForm Modal"
             className="modal-content"

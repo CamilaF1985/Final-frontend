@@ -129,9 +129,21 @@ img {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 600px;
     width: 90%;
     text-align: center;
+}
+
+/* Ajustes específicos para el botón Editar */
+.modal-content .row .col-md-3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Ajustes para el botón Editar Contraseña */
+.modal-content .row .col-md-3 button.btn-secondary {
+    margin-left: auto;
 }
 
 /* Estilos para el contenedor del formulario */

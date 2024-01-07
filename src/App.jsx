@@ -17,7 +17,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen);
+  const modalIsOpen = useSelector((state) => state.modalIsOpen);
 
   // Efecto de inicialización para cerrar el modal
   useEffect(() => {
@@ -114,6 +114,9 @@ const App = () => {
 };
 
 export default App;
+
+
+
 
 
 
