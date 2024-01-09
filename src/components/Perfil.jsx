@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModalAndRedirect } from '../flux/actions';
@@ -9,30 +9,18 @@ import logoutIcon from '../assets/img/logout.png';
 
 const Perfil = () => {
     const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.modalIsOpen);
+    const isOpen = useSelector((state) => state.modalIsOpen);
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
-  
+
     const handleCloseModal = () => {
-      // Verificar el tipo de usuario y redirigir en consecuencia
-      const redirectPath = user.userType === 'administrador' ? '/home-administrador' : '/home-inquilino';
-  
-      dispatch(closeModalAndRedirect(redirectPath, navigate));
+        const path = user.userType === 'Administrador' ? '/home-administrador' : '/home-inquilino';
+        dispatch(closeModalAndRedirect(path, navigate));
     };
-  
-    useEffect(() => {
-      // No abrir automáticamente el modal al cargar el componente
-      // La apertura del modal debe manejarse en el componente padre (HomeAdministrador) al hacer clic en el icono de perfil
-    }, []); 
-  
-    // Verificar si el modal debe estar abierto antes de renderizar
-    if (!isModalOpen) {
-      return null;
-    }
 
     return (
         <Modal
-            isOpen={true}
+            isOpen={isOpen}
             onRequestClose={handleCloseModal}
             contentLabel="Perfil Modal"
             className="modal-content"
@@ -95,6 +83,7 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
 
 
 

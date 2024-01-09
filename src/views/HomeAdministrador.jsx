@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setModalState } from '../flux/actions';
+import { useNavigate } from 'react-router-dom';
+import { setModalState, openModal } from '../flux/actions';
 import logo from '../assets/img/logo.png';
 import perfilImage from '../assets/img/perfil.png';
 import gastosImage from '../assets/img/gastos.png';
@@ -8,19 +9,21 @@ import tareasImage from '../assets/img/tareas.png';
 import configuracionImage from '../assets/img/configuracion.png';
 import Perfil from '../components/Perfil.jsx';
 
+// HomeAdministrador.jsx
 const HomeAdministrador = () => {
-  // Utiliza useSelector para obtener el estado del usuario desde el store
   const { user, modalIsOpen } = useSelector((state) => state);
-
-  // Obtener el username del estado del usuario
   const username = user.username;
-
-  // Utiliza useDispatch para obtener la función dispatch
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Función para abrir el modal de perfil
   const handleOpenPerfilModal = () => {
-    dispatch(setModalState(true)); // Cambia modalIsOpen a true
+    dispatch(openModal());
+    // Redirige a la ruta del perfil cuando se abre el modal
+    navigate('/perfil');
+  };
+
+  const handleCloseModal = () => {
+    dispatch(setModalState(false));
   };
 
   return (
@@ -38,8 +41,8 @@ const HomeAdministrador = () => {
         </div>
 
         <div className="col-12 col-md-8 text-center fila-imagen-personalizada d-flex flex-wrap">
+          {/* Icono "Mi perfil" */}
           <div className="col-6 col-md-6 mb-3" onClick={handleOpenPerfilModal} style={{ cursor: 'pointer' }}>
-            {/* Icono "Mi perfil" */}
             <div className="contenedor-imagen contenedor-imagen-debajo contenedor-imagen-primera">
               <img src={perfilImage} alt="Mi perfil" className="img-fluid" />
             </div>
@@ -73,12 +76,19 @@ const HomeAdministrador = () => {
       </div>
 
       {/* Modal de perfil */}
-      {modalIsOpen && <Perfil userType="administrador" />}
+      <Perfil isOpen={modalIsOpen} onRequestClose={handleCloseModal} perfilModal={true} />
     </div>
   );
 };
 
 export default HomeAdministrador;
+
+
+
+
+
+
+
 
 
 

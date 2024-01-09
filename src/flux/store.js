@@ -1,13 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducer.js'; // Importación de rootReducer
+import rootReducer from './reducer.js';
 
 // Configuración del store de Redux
 const store = configureStore({
-  // Reductores combinados que gestionarán el estado global
-  reducer: rootReducer, 
+  reducer: rootReducer,
 });
 
 export default store;
+
+
+
+
 
 
 

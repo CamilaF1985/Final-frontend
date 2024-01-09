@@ -1,10 +1,28 @@
+// En actions.js
 // Acción para establecer el tipo de usuario en el estado global
 export const SET_USER_TYPE = 'SET_USER_TYPE';
+export const setUserType = () => {
+  // Cargar datos del localStorage
+  const storedUserType = localStorage.getItem('userType');
+  const storedUsername = localStorage.getItem('username');
+
+  return {
+    type: SET_USER_TYPE,
+    payload: { userType: storedUserType, username: storedUsername },
+  };
+};
 
 // Creador de acciones para establecer el tipo de usuario
-export const setUserType = (userType) => ({
-  type: SET_USER_TYPE,
-  payload: userType,
+export const SET_USER_ON_MODAL_OPEN = 'SET_USER_ON_MODAL_OPEN';
+export const setUserOnModalOpen = (user) => ({
+  type: SET_USER_ON_MODAL_OPEN,
+  payload: user,
+});
+
+// Nueva acción para limpiar el estado del usuario sin borrar los datos en localStorage
+export const CLEAR_USER_DATA = 'CLEAR_USER_DATA';
+export const clearUserData = () => ({
+  type: CLEAR_USER_DATA,
 });
 
 // Acción para abrir el modal
@@ -41,11 +59,12 @@ export const saveUserData = (userData) => ({
   payload: userData,
 });
 
-// Acción para realizar el inicio de sesión
 export const loginUser = (formData, navigate, closeModal) => {
   return (dispatch) => {
+    const storedUserType = localStorage.getItem('userType');
+    const storedUsername = localStorage.getItem('username');
+
     if (formData.username === 'Administrador' && formData.password === 'Admin') {
-      // Credenciales correctas para el administrador
       const userData = {
         userType: 'Administrador',
         username: formData.username,
@@ -58,7 +77,6 @@ export const loginUser = (formData, navigate, closeModal) => {
       dispatch(setModalState(false)); // Agregar esta línea para cerrar el modal
       navigate('/home-administrador'); // Redirigir a la página del administrador
     } else if (formData.username === 'Inquilino' && formData.password === 'Inquilino') {
-      // Credenciales correctas para el inquilino
       const userData = {
         userType: 'Inquilino',
         username: formData.username,
@@ -70,6 +88,17 @@ export const loginUser = (formData, navigate, closeModal) => {
       closeModal(); // Cerrar el modal
       dispatch(setModalState(false)); // Agregar esta línea para cerrar el modal
       navigate('/home-inquilino'); // Redirigir a la página del inquilino
+    } else if (storedUserType && storedUsername) {
+      // Si hay datos almacenados en localStorage, cargarlos
+      const userData = {
+        userType: storedUserType,
+        username: storedUsername,
+      };
+
+      dispatch(saveUserData(userData)); // Despachar acción para almacenar datos del usuario
+      closeModal(); // Cerrar el modal
+      dispatch(setModalState(false)); // Agregar esta línea para cerrar el modal
+      navigate(`/home-${storedUserType.toLowerCase()}`); // Redirigir según el tipo de usuario almacenado
     } else {
       // Credenciales incorrectas
       alert('Credenciales incorrectas');
@@ -89,4 +118,6 @@ const saveToLocalStorage = (userData) => {
 
 
 
-  
+
+
+

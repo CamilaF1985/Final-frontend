@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { closeModalAndRedirect } from '../flux/actions';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
