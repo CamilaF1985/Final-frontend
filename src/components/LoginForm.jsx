@@ -71,6 +71,7 @@ const LoginForm = () => {
                 placeholder="Ingresa tu nombre de usuario"
                 required
                 onChange={handleInputChange}
+                autoComplete="current-password" 
               />
               {/* Mensaje de retroalimentación en caso de entrada no válida */}
               <div className="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>

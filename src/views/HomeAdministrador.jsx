@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalState } from '../flux/actions';
 import logo from '../assets/img/logo.png';
@@ -7,21 +7,33 @@ import gastosImage from '../assets/img/gastos.png';
 import tareasImage from '../assets/img/tareas.png';
 import configuracionImage from '../assets/img/configuracion.png';
 import Perfil from '../components/Perfil.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const HomeAdministrador = () => {
-  // Utiliza useSelector para obtener el estado del usuario desde el store
   const { user, modalIsOpen } = useSelector((state) => state);
-
-  // Obtener el username del estado del usuario
   const username = user.username;
-
-  // Utiliza useDispatch para obtener la función dispatch
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
-  // Función para abrir el modal de perfil
+  // Función para abrir el modal y navegar a la ruta "perfil"
   const handleOpenPerfilModal = () => {
-    dispatch(setModalState(true)); // Cambia modalIsOpen a true
+    dispatch(setModalState(true));
+    setIsModalOpened(true);
   };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    dispatch(setModalState(false));
+  };
+
+  useEffect(() => {
+    // Verifica si el modal se acaba de abrir
+    if (modalIsOpen) {
+      // Realiza la navegación
+      navigate('/perfil');
+    }
+  }, [modalIsOpen, navigate]);
 
   return (
     <div className="contenedor mt-4 mb-4 p-4">
@@ -38,8 +50,8 @@ const HomeAdministrador = () => {
         </div>
 
         <div className="col-12 col-md-8 text-center fila-imagen-personalizada d-flex flex-wrap">
+          {/* Icono "Mi perfil" */}
           <div className="col-6 col-md-6 mb-3" onClick={handleOpenPerfilModal} style={{ cursor: 'pointer' }}>
-            {/* Icono "Mi perfil" */}
             <div className="contenedor-imagen contenedor-imagen-debajo contenedor-imagen-primera">
               <img src={perfilImage} alt="Mi perfil" className="img-fluid" />
             </div>
@@ -73,12 +85,15 @@ const HomeAdministrador = () => {
       </div>
 
       {/* Modal de perfil */}
-      {modalIsOpen && <Perfil userType="administrador" />}
+      <Perfil isOpen={modalIsOpen} onRequestClose={handleCloseModal} />
     </div>
   );
 };
 
 export default HomeAdministrador;
+
+
+
 
 
 

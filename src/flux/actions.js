@@ -20,8 +20,8 @@ export const closeModal = () => ({
 });
 
 // Acción para cerrar el modal y redirigir a una ruta específica
-export const closeModalAndRedirect = (path, navigate) => {
-  return (dispatch) => {
+export const closeModalAndRedirect = (path) => {
+  return (dispatch, getState, { navigate }) => {
     dispatch(closeModal()); // Despacha la acción para cerrar el modal
     navigate(path); // Realiza la redirección a la ruta especificada
   };
