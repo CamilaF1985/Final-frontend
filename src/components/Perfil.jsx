@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeModalAndRedirect } from '../flux/actions';
+import { closeModalAndRedirect, clearUserData } from '../flux/actions';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 import perfilImage from '../assets/img/perfil.png';
@@ -16,6 +16,11 @@ const Perfil = () => {
     const handleCloseModal = () => {
         const path = user.userType === 'Administrador' ? '/home-administrador' : '/home-inquilino';
         dispatch(closeModalAndRedirect(path, navigate));
+    };
+
+    const handleLogout = () => {
+        dispatch(clearUserData());
+        navigate('/logout');
     };
 
     return (
@@ -71,7 +76,7 @@ const Perfil = () => {
                         </div>
 
                         {/* Icono de cerrar sesión y texto */}
-                        <div className="mt-3 d-flex justify-content-end">
+                        <div className="mt-3 d-flex justify-content-end" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                             <img src={logoutIcon} alt="Cerrar sesión" className="img-fluid" style={{ width: '30px', height: '30px' }} />
                             <p className="form-text">Cerrar sesión</p>
                         </div>
@@ -83,6 +88,7 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
 
 
 

@@ -19,11 +19,17 @@ export const setUserOnModalOpen = (user) => ({
   payload: user,
 });
 
-// Nueva acción para limpiar el estado del usuario sin borrar los datos en localStorage
+// Nueva acción para limpiar el estado del usuario y borrar los datos en localStorage
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA';
-export const clearUserData = () => ({
-  type: CLEAR_USER_DATA,
-});
+export const clearUserData = () => {
+  // Borra los datos del localStorage
+  localStorage.removeItem('userType');
+  localStorage.removeItem('username');
+
+  return {
+    type: CLEAR_USER_DATA,
+  };
+};
 
 // Acción para abrir el modal
 export const OPEN_MODAL = 'OPEN_MODAL';

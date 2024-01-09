@@ -1,32 +1,73 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+// AppRoutes.jsx
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Importa useNavigate
 import App from '../App.jsx';
 import HomeAdministrador from '../views/HomeAdministrador.jsx';
 import HomeInquilino from '../views/HomeInquilino.jsx';
 import Perfil from '../components/Perfil.jsx';
-import RegistroForm from '../components/RegistroForm.jsx'; // Importa el componente RegistroForm
 
 const AppRoutes = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUserType = localStorage.getItem('userType');
+    if (storedUserType) {
+      const homeRoute = `/home-${storedUserType.toLowerCase()}`;
+      navigate(homeRoute, { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<App showModal={true} loginModal={true} />} />
       <Route path="/login" element={<App showModal={true} loginModal={true} />} />
       <Route path="/contacto" element={<App showModal={true} contactModal={true} />} />
 
-      {/* Perfil se integrará directamente en las rutas de HomeAdministrador e HomeInquilino */}
-      <Route path="/home-administrador" element={<HomeAdministrador showModal={true} perfilModal={true} />} />
-      <Route path="/home-inquilino" element={<HomeInquilino showModal={true} perfilModal={true} />} />
-
-      {/* Ruta para el perfil */}
+      <Route path="/home-administrador" element={<HomeAdministrador />} />
+      <Route path="/home-inquilino" element={<HomeInquilino />} />
       <Route path="/perfil" element={<Perfil />} />
 
-      {/* Ruta para el formulario de registro */}
+      <Route path="/logout" element={<Navigate to="/" replace={true} state={{ from: '/' }} />} />
       <Route path="/registro" element={<App showModal={true} registroModal={true} />} />
     </Routes>
   );
 };
 
 export default AppRoutes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

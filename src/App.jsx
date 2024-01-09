@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { openModal, closeModal, closeModalAndRedirect } from './flux/actions';
+import { openModal, closeModal, closeModalAndRedirect, setUserType } from './flux/actions';  // Asegúrate de importar setUserType
 import Modal from 'react-modal';
 import LoginForm from './components/LoginForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
-import RegistroForm from './components/RegistroForm.jsx'; // Importa el componente RegistroForm
-
+import RegistroForm from './components/RegistroForm.jsx';
 import logo from './assets/img/logo.png';
 import loginImage from './assets/img/login.png';
 import contactoImage from './assets/img/contacto.png';
@@ -15,24 +14,19 @@ import registroImage from './assets/img/registro.png';
 import Mapa from './components/Mapa.jsx';
 
 const App = () => {
-  // Hooks y Redux
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const modalIsOpen = useSelector((state) => state.modalIsOpen);
 
-  // Efecto de inicialización para cerrar el modal
   useEffect(() => {
     dispatch(closeModal());
-  }, []);
+  }, [dispatch]);
 
-  // Función para abrir el modal y redirigir
   const openModalAndRedirect = (path) => {
     dispatch(openModal());
     navigate(path);
   };
 
-  // Función para cerrar el modal y redirigir a la ruta principal
   const handleCloseModal = () => {
     dispatch(closeModal());
     dispatch(closeModalAndRedirect('/', navigate));
