@@ -1,39 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setModalState } from '../flux/actions';
+import { useNavigate } from 'react-router-dom';
+import { setModalState, openModal } from '../flux/actions';
 import logo from '../assets/img/logo.png';
 import perfilImage from '../assets/img/perfil.png';
 import gastosImage from '../assets/img/gastos.png';
 import tareasImage from '../assets/img/tareas.png';
 import configuracionImage from '../assets/img/configuracion.png';
 import Perfil from '../components/Perfil.jsx';
-import { useNavigate } from 'react-router-dom';
 
+// HomeAdministrador.jsx
 const HomeAdministrador = () => {
   const { user, modalIsOpen } = useSelector((state) => state);
   const username = user.username;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isModalOpened, setIsModalOpened] = useState(false);
 
-  // Función para abrir el modal y navegar a la ruta "perfil"
   const handleOpenPerfilModal = () => {
-    dispatch(setModalState(true));
-    setIsModalOpened(true);
+    dispatch(openModal());
+    // Redirige a la ruta del perfil cuando se abre el modal
+    navigate('/perfil');
   };
 
-  // Función para cerrar el modal
   const handleCloseModal = () => {
     dispatch(setModalState(false));
   };
-
-  useEffect(() => {
-    // Verifica si el modal se acaba de abrir
-    if (modalIsOpen) {
-      // Realiza la navegación
-      navigate('/perfil');
-    }
-  }, [modalIsOpen, navigate]);
 
   return (
     <div className="contenedor mt-4 mb-4 p-4">
@@ -85,12 +76,16 @@ const HomeAdministrador = () => {
       </div>
 
       {/* Modal de perfil */}
-      <Perfil isOpen={modalIsOpen} onRequestClose={handleCloseModal} />
+      <Perfil isOpen={modalIsOpen} onRequestClose={handleCloseModal} perfilModal={true} />
     </div>
   );
 };
 
 export default HomeAdministrador;
+
+
+
+
 
 
 

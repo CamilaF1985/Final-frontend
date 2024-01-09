@@ -1,19 +1,26 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 import perfilImage from '../assets/img/perfil.png';
 import gastosImage from '../assets/img/gastos.png';
 import tareasImage from '../assets/img/tareas.png';
 import Perfil from '../components/Perfil.jsx';
-import { setModalState } from '../flux/actions';
+import { setModalState, openModal } from '../flux/actions'; 
 
 const HomeInquilino = () => {
   const { user, modalIsOpen } = useSelector((state) => state);
   const username = user.username;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenPerfilModal = () => {
-    dispatch(setModalState(true));
+    dispatch(openModal());
+    navigate('/perfil'); // Redirige a la ruta del perfil
+  };
+
+  const handleCloseModal = () => {
+    dispatch(setModalState(false));
   };
 
   return (
@@ -54,11 +61,12 @@ const HomeInquilino = () => {
       </div>
 
       {/* Modal de perfil */}
-      {modalIsOpen && <Perfil userType="inquilino" />}
+      {modalIsOpen && <Perfil isOpen={modalIsOpen} onRequestClose={handleCloseModal} />}
     </div>
   );
 };
 
 export default HomeInquilino;
+
 
 

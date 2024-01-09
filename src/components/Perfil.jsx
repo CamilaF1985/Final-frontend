@@ -1,12 +1,11 @@
-// Perfil.jsx
 import React from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModalAndRedirect } from '../flux/actions';
+import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 import perfilImage from '../assets/img/perfil.png';
 import logoutIcon from '../assets/img/logout.png';
-import { useNavigate } from 'react-router-dom';
 
 const Perfil = () => {
     const dispatch = useDispatch();
@@ -14,10 +13,8 @@ const Perfil = () => {
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
-    // Función para cerrar el modal y redirigir a la ruta principal
     const handleCloseModal = () => {
-        // Configuración de la ruta según el tipo de usuario
-        const path = user.userType === 'administrador' ? '/home-administrador' : '/home-inquilino';
+        const path = user.userType === 'Administrador' ? '/home-administrador' : '/home-inquilino';
         dispatch(closeModalAndRedirect(path, navigate));
     };
 
