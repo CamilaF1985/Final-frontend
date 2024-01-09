@@ -6,10 +6,12 @@ import { openModal, closeModal, closeModalAndRedirect } from './flux/actions';
 import Modal from 'react-modal';
 import LoginForm from './components/LoginForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
+import RegistroForm from './components/RegistroForm.jsx'; // Importa el componente RegistroForm
 
 import logo from './assets/img/logo.png';
 import loginImage from './assets/img/login.png';
 import contactoImage from './assets/img/contacto.png';
+import registroImage from './assets/img/registro.png';
 import Mapa from './components/Mapa.jsx';
 
 const App = () => {
@@ -69,6 +71,18 @@ const App = () => {
             </div>
             <p className="texto-debajo-imagen">Contáctanos</p>
           </div>
+
+          {/* Registro */}
+          <div className="col-6 col-md-4 mb-md-3">
+            <div
+              className="contenedor-imagen contenedor-imagen-debajo"
+              onClick={() => openModalAndRedirect('/registro')}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src={registroImage} alt="Registro" className="img-fluid" />
+            </div>
+            <p className="texto-debajo-imagen">Regístrate</p>
+          </div>
         </div>
 
         {/* Contenedor "Quiénes somos" y "Nuestra Ubicación" */}
@@ -100,12 +114,15 @@ const App = () => {
           className="modal-content"
           overlayClassName="modal-overlay"
         >
-          {/* Contenido del modal (LoginForm o ContactForm según la ruta) */}
+          {/* Contenido del modal (LoginForm, ContactForm, o RegistroForm según la ruta) */}
           {location.pathname === '/login' ? (
             <LoginForm />
-          ) : (
+          ) : location.pathname === '/contacto' ? (
             <ContactForm />
-          )}
+          ) : location.pathname === '/registro' ? (
+            <RegistroForm />
+          ) : null}
+
         </Modal>,
         document.body
       )}
@@ -114,6 +131,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
