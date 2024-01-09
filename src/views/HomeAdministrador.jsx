@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Agrega Link
 import { setModalState, openModal } from '../flux/actions';
 import logo from '../assets/img/logo.png';
 import perfilImage from '../assets/img/perfil.png';
@@ -9,7 +9,6 @@ import tareasImage from '../assets/img/tareas.png';
 import configuracionImage from '../assets/img/configuracion.png';
 import Perfil from '../components/Perfil.jsx';
 
-// HomeAdministrador.jsx
 const HomeAdministrador = () => {
   const { user, modalIsOpen } = useSelector((state) => state);
   const username = user.username;
@@ -18,12 +17,15 @@ const HomeAdministrador = () => {
 
   const handleOpenPerfilModal = () => {
     dispatch(openModal());
-    // Redirige a la ruta del perfil cuando se abre el modal
     navigate('/perfil');
   };
 
   const handleCloseModal = () => {
     dispatch(setModalState(false));
+  };
+
+  const handleNavigateToAdminPanel = () => {
+    navigate('/administrar-panel');
   };
 
   return (
@@ -65,12 +67,12 @@ const HomeAdministrador = () => {
             <p className="texto-debajo-imagen">Tareas pendientes</p>
           </div>
 
-          {/* Icono "Administración" */}
-          <div className="col-6 col-md-4 mb-md-3">
+          {/* Icono "Administración" sin Link */}
+          <div className="col-6 col-md-4 mb-md-3" onClick={handleNavigateToAdminPanel} style={{ cursor: 'pointer' }}>
             <div className="contenedor-imagen contenedor-imagen-debajo">
               <img src={configuracionImage} alt="Administración" className="img-fluid icono-administracion" />
+              <p className="texto-debajo-imagen">Administración</p>
             </div>
-            <p className="texto-debajo-imagen">Administración</p>
           </div>
         </div>
       </div>
@@ -82,6 +84,8 @@ const HomeAdministrador = () => {
 };
 
 export default HomeAdministrador;
+
+
 
 
 

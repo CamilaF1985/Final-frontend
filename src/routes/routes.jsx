@@ -1,10 +1,11 @@
 // AppRoutes.jsx
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import App from '../App.jsx';
 import HomeAdministrador from '../views/HomeAdministrador.jsx';
 import HomeInquilino from '../views/HomeInquilino.jsx';
 import Perfil from '../components/Perfil.jsx';
+import PanelAdministracion from '../views/PanelAdministracion.jsx'; 
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -12,8 +13,15 @@ const AppRoutes = () => {
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
     if (storedUserType) {
-      const homeRoute = `/home-${storedUserType.toLowerCase()}`;
-      navigate(homeRoute, { replace: true });
+      if (storedUserType.toLowerCase() === 'administrador') {
+        if (window.location.pathname.includes('/administrar-panel')) {
+          // Si el usuario está en una subruta de /administrar-panel, deja que se quede ahí.
+          return;
+        }
+        navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });
+      } else {
+        navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });
+      }
     }
   }, [navigate]);
 
@@ -27,6 +35,8 @@ const AppRoutes = () => {
       <Route path="/home-inquilino" element={<HomeInquilino />} />
       <Route path="/perfil" element={<Perfil />} />
 
+      <Route path="/administrar-panel" element={<PanelAdministracion />} /> 
+
       <Route path="/logout" element={<Navigate to="/" replace={true} state={{ from: '/' }} />} />
       <Route path="/registro" element={<App showModal={true} registroModal={true} />} />
     </Routes>
@@ -34,6 +44,7 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
+
 
 
 
