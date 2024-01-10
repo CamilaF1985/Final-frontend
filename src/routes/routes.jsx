@@ -15,7 +15,6 @@ const AppRoutes = () => {
     if (storedUserType) {
       if (storedUserType.toLowerCase() === 'administrador') {
         if (window.location.pathname.includes('/administrar-panel')) {
-          // Si el usuario está en una subruta de /administrar-panel, deja que se quede ahí.
           return;
         }
         navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });

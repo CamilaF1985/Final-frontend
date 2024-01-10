@@ -24,6 +24,8 @@ const PanelAdministracion = () => {
               <img src={gastosImage} alt="Administrar gastos" className="img-fluid" />
             </div>
             <p className="texto-debajo-imagen">Administrar gastos</p>
+            <p className="texto-debajo-imagen-sub">Agregar factura</p>
+            <p className="texto-debajo-imagen-sub">Eliminar factura</p>
           </div>
 
           {/* Icono "Administrar tareas" */}
@@ -32,6 +34,8 @@ const PanelAdministracion = () => {
               <img src={tareasImage} alt="Administrar tareas" className="img-fluid" />
             </div>
             <p className="texto-debajo-imagen">Administrar tareas</p>
+            <p className="texto-debajo-imagen-sub">Agregar tarea</p>
+            <p className="texto-debajo-imagen-sub">Eliminar tarea</p>
           </div>
 
           {/* Icono "Administrar inquilinos" */}
@@ -40,6 +44,8 @@ const PanelAdministracion = () => {
               <img src={perfilImage} alt="Administrar Inquilinos" className="img-fluid" />
             </div>
             <p className="texto-debajo-imagen">Administrar Inquilinos</p>
+            <p className="texto-debajo-imagen-sub">Agregar Inquilino</p>
+            <p className="texto-debajo-imagen-sub">Eliminar Inquilino</p>
           </div>
         </div>
       </div>
@@ -48,3 +54,5 @@ const PanelAdministracion = () => {
 };
 
 export default PanelAdministracion;
+
+

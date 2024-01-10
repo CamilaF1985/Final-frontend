@@ -64,6 +64,13 @@ img {
     color: #333;
 }
 
+/* Estilos para el texto de panel de configuración */
+.texto-debajo-imagen-sub {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+
 /* Estilos para el mapa de Google */
 .google-maps-iframe {
     width: 100%;
