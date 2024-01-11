@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { saveUserData } from './flux/actions.js';
+import { saveUserData } from './flux/userActions.js';
 import { Provider } from 'react-redux';
 import store from './flux/store.js';
 import AppRoutes from './routes/routes.jsx';

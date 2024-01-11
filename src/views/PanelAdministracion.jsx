@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RegistroInquilino from '../components/RegistroInquilino.jsx';
 import EliminarInquilino from '../components/EliminarInquilino.jsx';
-import { setModalState, openModal } from '../flux/actions';
+import { setModalState, openModal } from '../flux/modalActions';
 import { useNavigate } from 'react-router-dom';
 import configuracionIcon from '../assets/img/configuracion.png';
 import gastosIcon from '../assets/img/administracion-gastos.png';

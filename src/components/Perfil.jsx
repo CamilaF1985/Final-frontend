@@ -1,7 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeModalAndRedirect, clearUserData } from '../flux/actions';
+import { closeModalAndRedirect} from '../flux/modalActions';  
+import { clearUserData }from '../flux/userActions';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 import perfilImage from '../assets/img/perfil.png';
@@ -9,7 +10,7 @@ import logoutIcon from '../assets/img/logout.png';
 
 const Perfil = () => {
     const dispatch = useDispatch();
-    const isOpen = useSelector((state) => state.modalIsOpen);
+    const modalIsOpen = useSelector((state) => state.modalIsOpen);
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const Perfil = () => {
 
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={modalIsOpen}
             onRequestClose={handleCloseModal}
             contentLabel="Perfil Modal"
             className="modal-content"

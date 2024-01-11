@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { openModal, closeModal, closeModalAndRedirect, setUserType } from './flux/actions';  // Asegúrate de importar setUserType
+import { openModal, closeModal, closeModalAndRedirect } from './flux/modalActions';
 import Modal from 'react-modal';
 import LoginForm from './components/LoginForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
@@ -125,6 +125,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

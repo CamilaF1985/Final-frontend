@@ -15,17 +15,24 @@ const AppRoutes = () => {
   useEffect(() => {
     const storedUserType = localStorage.getItem('userType');
     if (storedUserType) {
+      const allowedPathsForAdministrador = [
+        '/administrar-panel',
+        '/registro-inquilino',
+        '/eliminar-inquilino',
+        '/perfil'
+      ];
+
       if (storedUserType.toLowerCase() === 'administrador') {
         // Permitir el acceso a /registro-inquilino para usuarios administradores
-        if (
-          window.location.pathname.includes('/administrar-panel') ||
-          window.location.pathname.includes('/registro-inquilino')||
-          window.location.pathname.includes('/eliminar-inquilino')
-        ) {
+        if (allowedPathsForAdministrador.some(path => window.location.pathname.includes(path))) {
           return;
         }
         navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });
-      } else {
+      } else if (storedUserType.toLowerCase() === 'inquilino') {
+        // Permitir el acceso a /perfil para usuarios inquilinos
+        if (window.location.pathname.includes('/perfil')) {
+          return;
+        }
         navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });
       }
     }
@@ -40,7 +47,6 @@ const AppRoutes = () => {
       <Route path="/home-administrador" element={<HomeAdministrador />} />
       <Route path="/home-inquilino" element={<HomeInquilino />} />
       <Route path="/perfil" element={<Perfil />} />
-
       <Route path="/administrar-panel" element={<PanelAdministracion />} />
       <Route path="/registro-inquilino" element={<RegistroInquilino />} />
       <Route path="/eliminar-inquilino" element={<EliminarInquilino />} />

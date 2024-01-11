@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector  } from 'react-redux';
-import { closeModalAndRedirect } from '../flux/actions';
+import { closeModalAndRedirect } from '../flux/modalActions';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 
