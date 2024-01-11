@@ -1,36 +1,32 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { openModal, closeModal, closeModalAndRedirect } from './flux/actions';
+import { openModal, closeModal, closeModalAndRedirect } from './flux/modalActions';
 import Modal from 'react-modal';
 import LoginForm from './components/LoginForm.jsx';
 import ContactForm from './components/ContactForm.jsx';
-
+import RegistroForm from './components/RegistroForm.jsx';
 import logo from './assets/img/logo.png';
 import loginImage from './assets/img/login.png';
 import contactoImage from './assets/img/contacto.png';
+import registroImage from './assets/img/registro.png';
 import Mapa from './components/Mapa.jsx';
 
 const App = () => {
-  // Hooks y Redux
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const modalIsOpen = useSelector((state) => state.modalIsOpen);
 
-  // Efecto de inicialización para cerrar el modal
   useEffect(() => {
     dispatch(closeModal());
-  }, []);
+  }, [dispatch]);
 
-  // Función para abrir el modal y redirigir
   const openModalAndRedirect = (path) => {
     dispatch(openModal());
     navigate(path);
   };
 
-  // Función para cerrar el modal y redirigir a la ruta principal
   const handleCloseModal = () => {
     dispatch(closeModal());
     dispatch(closeModalAndRedirect('/', navigate));
@@ -69,6 +65,18 @@ const App = () => {
             </div>
             <p className="texto-debajo-imagen">Contáctanos</p>
           </div>
+
+          {/* Registro */}
+          <div className="col-6 col-md-4 mb-md-3">
+            <div
+              className="contenedor-imagen contenedor-imagen-debajo"
+              onClick={() => openModalAndRedirect('/registro')}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src={registroImage} alt="Registro" className="img-fluid" />
+            </div>
+            <p className="texto-debajo-imagen">Regístrate</p>
+          </div>
         </div>
 
         {/* Contenedor "Quiénes somos" y "Nuestra Ubicación" */}
@@ -100,12 +108,15 @@ const App = () => {
           className="modal-content"
           overlayClassName="modal-overlay"
         >
-          {/* Contenido del modal (LoginForm o ContactForm según la ruta) */}
+          {/* Contenido del modal (LoginForm, ContactForm, o RegistroForm según la ruta) */}
           {location.pathname === '/login' ? (
             <LoginForm />
-          ) : (
+          ) : location.pathname === '/contacto' ? (
             <ContactForm />
-          )}
+          ) : location.pathname === '/registro' ? (
+            <RegistroForm />
+          ) : null}
+
         </Modal>,
         document.body
       )}
@@ -114,6 +125,8 @@ const App = () => {
 };
 
 export default App;
+
+
 
 
 

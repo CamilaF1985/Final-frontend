@@ -44,6 +44,7 @@ module.exports = {
         static: path.resolve(__dirname, 'src'),
         compress: true,
         port: 3000,
+        historyApiFallback: true,
         open: true,
     },
 };

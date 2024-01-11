@@ -1,36 +1,53 @@
-// rootReducer.js
-import { OPEN_MODAL, CLOSE_MODAL, SET_USER_TYPE, SAVE_USER_DATA, SET_MODAL_STATE, CLEAR_USER_DATA } from './actions.js';
+import {
+  SET_USER_TYPE,
+  SAVE_USER_DATA,
+  CLEAR_USER_DATA,
+} from './userActions.js';
 
-// Estado inicial del reductor para la gestión del modal y datos del usuario
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  SET_MODAL_STATE,
+} from './modalActions.js';
+
 const initialState = {
-  modalIsOpen: false, // Indica si el modal está abierto o cerrado
+  modalIsOpen: false,
   user: {
-    userType: localStorage.getItem('userType') || null, // Estado para almacenar el tipo de usuario
-    username: localStorage.getItem('username') || null, // Estado para almacenar el nombre de usuario
+    userType: localStorage.getItem('userType') || null,
+    username: localStorage.getItem('username') || null,
+    rut: null,
   },
 };
 
-// Reductor que gestiona el estado del modal y del usuario en la aplicación
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL:
-      return { ...state, modalIsOpen: true }; // Acción para abrir el modal
+      return { ...state,  modalIsOpen: true };
     case CLOSE_MODAL:
-      return { ...state, modalIsOpen: false }; // Acción para cerrar el modal
+      return { ...state, modalIsOpen: false };
     case SET_USER_TYPE:
-      return { ...state, user: { ...state.user, userType: action.payload } }; // Acción para establecer el tipo de usuario
+      return { ...state, user: { ...state.user, userType: action.payload } };
     case SAVE_USER_DATA:
-      return { ...state, user: { ...action.payload } }; // Acción para guardar datos del usuario
+      return { ...state, user: { ...state.user, ...action.payload } };
     case CLEAR_USER_DATA:
-      return { ...state, user: { userType: null, username: null } };
+      return { ...state, user: { userType: null, username: null, rut: null } };
     case SET_MODAL_STATE:
-      return { ...state, modalIsOpen: action.payload }; // Acción para establecer el estado del modal
+      return { ...state, modalIsOpen: action.payload };
     default:
       return state;
   }
 };
 
 export default rootReducer;
+
+
+
+
+
+
+
+
+
 
 
 

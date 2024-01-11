@@ -1,10 +1,10 @@
 // LoginForm.jsx
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
-import { closeModal, loginUser } from '../flux/actions';
+import { loginUser} from '../flux/userActions';
+import { closeModal, closeModalAndRedirect } from '../flux/modalActions';
 import '../assets/css/App.css';
 
 const LoginForm = () => {
@@ -32,9 +32,10 @@ const LoginForm = () => {
     dispatch(loginUser(formData, navigate, closeModal));
   };
 
-  // Función para cerrar el modal
+  // Función para cerrar el modal y redirigir a '/'
   const handleCloseModal = () => {
     dispatch(closeModal());
+    dispatch(closeModalAndRedirect('/', navigate)); // Redirigir a '/' al cerrar el modal
   };
 
   return (
@@ -71,7 +72,7 @@ const LoginForm = () => {
                 placeholder="Ingresa tu nombre de usuario"
                 required
                 onChange={handleInputChange}
-                autoComplete="current-password" 
+                autoComplete="current-password"
               />
               {/* Mensaje de retroalimentación en caso de entrada no válida */}
               <div className="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>
@@ -108,6 +109,8 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+
 
 
 

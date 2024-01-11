@@ -1,7 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeModalAndRedirect } from '../flux/actions';
+import { closeModalAndRedirect} from '../flux/modalActions';  
+import { clearUserData }from '../flux/userActions';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 import perfilImage from '../assets/img/perfil.png';
@@ -9,7 +10,7 @@ import logoutIcon from '../assets/img/logout.png';
 
 const Perfil = () => {
     const dispatch = useDispatch();
-    const isOpen = useSelector((state) => state.modalIsOpen);
+    const modalIsOpen = useSelector((state) => state.modalIsOpen);
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
@@ -18,9 +19,14 @@ const Perfil = () => {
         dispatch(closeModalAndRedirect(path, navigate));
     };
 
+    const handleLogout = () => {
+        dispatch(clearUserData());
+        navigate('/logout');
+    };
+
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={modalIsOpen}
             onRequestClose={handleCloseModal}
             contentLabel="Perfil Modal"
             className="modal-content"
@@ -71,7 +77,7 @@ const Perfil = () => {
                         </div>
 
                         {/* Icono de cerrar sesión y texto */}
-                        <div className="mt-3 d-flex justify-content-end">
+                        <div className="mt-3 d-flex justify-content-end" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                             <img src={logoutIcon} alt="Cerrar sesión" className="img-fluid" style={{ width: '30px', height: '30px' }} />
                             <p className="form-text">Cerrar sesión</p>
                         </div>
@@ -83,6 +89,7 @@ const Perfil = () => {
 };
 
 export default Perfil;
+
 
 
 
