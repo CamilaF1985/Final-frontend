@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RegistroInquilino from '../components/RegistroInquilino.jsx';
+import EliminarInquilino from '../components/EliminarInquilino.jsx';
 import { setModalState, openModal } from '../flux/actions';
 import { useNavigate } from 'react-router-dom';
 import configuracionIcon from '../assets/img/configuracion.png';
@@ -18,8 +19,30 @@ const PanelAdministracion = () => {
     navigate('/registro-inquilino');
   };
 
+  const handleOpenEliminarInquilinoModal = () => {
+    dispatch(openModal());
+    navigate('/eliminar-inquilino');
+  };
+
   const handleCloseModal = () => {
     dispatch(setModalState(false));
+  };
+
+  const handleVolverAlHome = () => {
+    navigate('/home-inquilino');
+  };
+
+  // Función para determinar qué componente de modal renderizar según la ruta actual
+  const renderInquilinoModal = () => {
+    const currentPath = window.location.pathname;
+
+    if (currentPath === '/registro-inquilino') {
+      return <RegistroInquilino isOpen={modalIsOpen} onRequestClose={handleCloseModal} RegistroInquilinoModal={true} />;
+    } else if (currentPath === '/eliminar-inquilino') {
+      return <EliminarInquilino isOpen={modalIsOpen} onRequestClose={handleCloseModal} EliminarInquilinoModal={true} />;
+    } else {
+      return null; // Puedes devolver null si no estás en ninguna de las rutas relevantes
+    }
   };
 
   return (
@@ -64,13 +87,21 @@ const PanelAdministracion = () => {
             <p className="texto-debajo-imagen-sub" onClick={handleOpenRegistroInquilinoModal} style={{ cursor: 'pointer' }}>
               Agregar Inquilino
             </p>
-            <p className="texto-debajo-imagen-sub">Eliminar Inquilino</p>
+            <p className="texto-debajo-imagen-sub" onClick={handleOpenEliminarInquilinoModal} style={{ cursor: 'pointer' }}>
+              Eliminar Inquilino</p>
           </div>
         </div>
       </div>
 
-      {/* Modal de inquilino */}
-      <RegistroInquilino isOpen={modalIsOpen} onRequestClose={handleCloseModal} RegistroInquilinoModal={true} />
+      {/* Botón "Volver al Home" */}
+      <div className="d-flex justify-content-end mt-3">
+        <button className="btn btn-primary" onClick={handleVolverAlHome}>
+          Volver al Home
+        </button>
+      </div>
+
+      {/* Renderizar el componente de modal según la ruta */}
+      {renderInquilinoModal()}
     </div>
   );
 };

@@ -6,34 +6,39 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/css/App.css';
 
 const RegistroInquilino = () => {
-    const dispatch = useDispatch();
-    const isOpen = useSelector((state) => state.modalIsOpen);
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modalIsOpen);
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        rut: '',
-        nombreUnidad: '',
-        email: '',
-        nombre: '',
-        contrasena: '',
+  const [formData, setFormData] = useState({
+    rut: '',
+    nombreUnidad: '',
+    email: '',
+    nombre: '',
+    contrasena: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Guardar todos los datos del inquilino en el estado global
+    const inquilinoData = {
+      userType: 'Inquilino',
+      username: formData.nombre,
+      rut: formData.rut,
+      nombreUnidad: formData.nombreUnidad,
+      email: formData.email,
+      contrasena: formData.contrasena,
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // Guardar los datos del inquilino en el estado global
-        const inquilinoData = {
-            userType: 'Inquilino',
-            username: formData.nombre,
-        };
-        dispatch(saveUserData(inquilinoData));
+    dispatch(saveUserData(inquilinoData));
 
         // Cierra el modal después de enviar la solicitud
         handleCloseModal();
@@ -148,7 +153,7 @@ const RegistroInquilino = () => {
                         </div>
 
                         <div className="col-md-12 d-flex justify-content-end">
-                            <button className="btn btn-primary" type="submit">Registrarse</button>
+                            <button className="btn btn-primary" type="submit">Registrar nuevo inquilino</button>
                         </div>
                     </form>
                 </div>

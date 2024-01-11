@@ -5,8 +5,9 @@ import App from '../App.jsx';
 import HomeAdministrador from '../views/HomeAdministrador.jsx';
 import HomeInquilino from '../views/HomeInquilino.jsx';
 import Perfil from '../components/Perfil.jsx';
-import PanelAdministracion from '../views/PanelAdministracion.jsx'; 
+import PanelAdministracion from '../views/PanelAdministracion.jsx';
 import RegistroInquilino from '../components/RegistroInquilino.jsx';
+import EliminarInquilino from '../components/EliminarInquilino.jsx';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -15,7 +16,12 @@ const AppRoutes = () => {
     const storedUserType = localStorage.getItem('userType');
     if (storedUserType) {
       if (storedUserType.toLowerCase() === 'administrador') {
-        if (window.location.pathname.includes('/administrar-panel')) {
+        // Permitir el acceso a /registro-inquilino para usuarios administradores
+        if (
+          window.location.pathname.includes('/administrar-panel') ||
+          window.location.pathname.includes('/registro-inquilino')||
+          window.location.pathname.includes('/eliminar-inquilino')
+        ) {
           return;
         }
         navigate(`/home-${storedUserType.toLowerCase()}`, { replace: true });
@@ -35,8 +41,9 @@ const AppRoutes = () => {
       <Route path="/home-inquilino" element={<HomeInquilino />} />
       <Route path="/perfil" element={<Perfil />} />
 
-      <Route path="/administrar-panel" element={<PanelAdministracion />} /> 
+      <Route path="/administrar-panel" element={<PanelAdministracion />} />
       <Route path="/registro-inquilino" element={<RegistroInquilino />} />
+      <Route path="/eliminar-inquilino" element={<EliminarInquilino />} />
 
       <Route path="/logout" element={<Navigate to="/" replace={true} state={{ from: '/' }} />} />
       <Route path="/registro" element={<App showModal={true} registroModal={true} />} />
