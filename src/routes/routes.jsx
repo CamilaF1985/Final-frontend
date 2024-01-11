@@ -6,6 +6,7 @@ import HomeAdministrador from '../views/HomeAdministrador.jsx';
 import HomeInquilino from '../views/HomeInquilino.jsx';
 import Perfil from '../components/Perfil.jsx';
 import PanelAdministracion from '../views/PanelAdministracion.jsx'; 
+import RegistroInquilino from '../components/RegistroInquilino.jsx';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const AppRoutes = () => {
       <Route path="/perfil" element={<Perfil />} />
 
       <Route path="/administrar-panel" element={<PanelAdministracion />} /> 
+      <Route path="/registro-inquilino" element={<RegistroInquilino />} />
 
       <Route path="/logout" element={<Navigate to="/" replace={true} state={{ from: '/' }} />} />
       <Route path="/registro" element={<App showModal={true} registroModal={true} />} />
